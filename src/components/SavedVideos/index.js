@@ -1,7 +1,9 @@
+import Layout from '../Layout'
+
 const SavedVideos = () => (
-    <div>
-      <h1>Saved Videos</h1>
-    </div>
-  )
+  <Layout>
+    <h1>Saved Videos</h1>
+  </Layout>
+)
 
 export default SavedVideos

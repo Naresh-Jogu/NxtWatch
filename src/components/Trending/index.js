@@ -1,7 +1,9 @@
+import Layout from '../Layout'
+
 const Trending = () => (
-    <div>
-      <h1>Trending</h1>
-    </div>
-  )
+  <Layout>
+    <h1>Trending</h1>
+  </Layout>
+)
 
 export default Trending

@@ -1,7 +1,9 @@
+import Layout from '../Layout'
+
 const Gaming = () => (
-    <div>
-      <h1>Gaming</h1>
-    </div>
-  )
+  <Layout>
+    <h1>Gaming</h1>
+  </Layout>
+)
 
 export default Gaming

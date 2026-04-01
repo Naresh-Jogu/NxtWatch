@@ -1,7 +1,6 @@
 import {useState} from 'react'
 import Cookies from 'js-cookie'
 import {useHistory} from 'react-router-dom'
-
 import {
   LoginContainer,
   LoginCard,
@@ -20,10 +19,13 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
   const history = useHistory()
 
   const handleSubmit = async e => {
     e.preventDefault()
+
+    setLoading(true)
 
     const userDetails = {
       username,
@@ -32,19 +34,21 @@ const Login = () => {
 
     const url = 'https://apis.ccbp.in/login'
 
-    const oprions = {
+    const options = {
       method: 'POST',
       body: JSON.stringify(userDetails),
     }
 
-    const resposnse = await fetch(url, oprions)
+    const resposnse = await fetch(url, options)
 
     const data = await resposnse.json()
 
     if (resposnse.ok) {
+      setLoading(false)
       Cookies.set('jwt_token', data.jwt_token, {expires: 30})
       history.replace('/')
     } else {
+      setLoading(false)
       setErrorMsg(data.error_msg)
     }
   }
@@ -87,7 +91,9 @@ const Login = () => {
             <CheckboxLabel htmlFor="showPassword">Show Password</CheckboxLabel>
           </CheckboxContainer>
 
-          <LoginButton type="submit">Login</LoginButton>
+          <LoginButton type="submit" disabled={loading}>
+            {loading ? 'Logging...' : 'Login'}
+          </LoginButton>
           <ErrorMessage>{errorMsg}</ErrorMessage>
         </LoginForm>
       </LoginCard>
