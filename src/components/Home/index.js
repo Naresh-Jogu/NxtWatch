@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
-import {TailSpin} from 'react-loader-spinner'
+
 import {FiSearch} from 'react-icons/fi'
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import Layout from '../Layout'
 import {
   ContentContainer,
@@ -9,6 +9,12 @@ import {
   SearchContainer,
   SearchInput,
   SearchButton,
+  LoaderContainer,
+  FailureContainer,
+  FailureImage,
+  FailureHeading,
+  FailureText,
+  RetryButton,
 } from './styledComponents'
 import VideoItem from '../VideoItem'
 
@@ -24,10 +30,10 @@ const Home = () => {
   const [searchInput, setSearchInput] = useState('')
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial)
 
-  const getVideos = async () => {
+  const getVideos = useCallback(async () => {
     setApiStatus(apiStatusConstants.loading)
     const jwtToken = Cookies.get('jwt_token')
-    const url = 'https://apis.ccbp.in/videos/all'
+    const url = `https://apis.ccbp.in/videos/all?search=${searchInput}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -55,11 +61,11 @@ const Home = () => {
     } else {
       setApiStatus(apiStatusConstants.failure)
     }
-  }
+  }, [searchInput])
 
   useEffect(() => {
     getVideos()
-  }, [])
+  }, [getVideos])
 
   const renderSearchBar = () => (
     <SearchContainer>
@@ -73,21 +79,71 @@ const Home = () => {
         type="button"
         data-testid="searchButton"
         onClick={getVideos}
+        onKeyDown={e => {
+          if (e.key === 'Enter') {
+            getVideos()
+          }
+        }}
       >
         <FiSearch />
       </SearchButton>
     </SearchContainer>
   )
 
+  const renderLoadingView = () => (
+    <LoaderContainer>
+      <h1>Loading...</h1>
+    </LoaderContainer>
+  )
+
+  const renderVideos = () => {
+    if (videosList.length === 0) {
+      return <p>No Search Results Found</p>
+    }
+
+    return (
+      <VideosContainer>
+        {videosList.map(video => (
+          <VideoItem key={video.id} video={video} />
+        ))}
+      </VideosContainer>
+    )
+  }
+
+  const renderFailureView = () => (
+    <FailureContainer>
+      <FailureImage
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
+        alt="failure view"
+      />
+      <FailureHeading>Oops! Something Went Wrong</FailureHeading>
+      <FailureText>
+        We are having some trouble completing your request. Please try again.
+      </FailureText>
+      <RetryButton type="button" onClick={getVideos}>
+        Retry
+      </RetryButton>
+    </FailureContainer>
+  )
+
+  const renderContent = () => {
+    switch (apiStatus) {
+      case apiStatusConstants.loading:
+        return renderLoadingView()
+      case apiStatusConstants.success:
+        return renderVideos()
+      case apiStatusConstants.failure:
+        return renderFailureView()
+      default:
+        return null
+    }
+  }
+
   return (
     <Layout>
       <ContentContainer>
         {renderSearchBar()}
-        <VideosContainer>
-          {videosList.map(video => (
-            <VideoItem key={video.id} video={video} />
-          ))}
-        </VideosContainer>
+        {renderContent()}
       </ContentContainer>
     </Layout>
   )
