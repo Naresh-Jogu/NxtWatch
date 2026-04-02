@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const VideoCard = styled.li`
-  width: 260px;
+  width: 100%;
   margin-bottom: 30px;
   cursor: pointer;
 `
