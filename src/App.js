@@ -1,7 +1,7 @@
 import {Switch, Route} from 'react-router-dom'
 import {useState} from 'react'
 import Login from './components/Login'
-import Header from './components/Header'
+
 import Home from './components/Home'
 import Trending from './components/Trending'
 import Gaming from './components/Gaming'
@@ -9,7 +9,7 @@ import NotFound from './components/NotFound'
 import SavedVideos from './components/SavedVideos'
 import ThemeContext from './context/ThemeContext'
 import ProtectedRoute from './components/ProtectedRoute'
-import Layout from './components/Layout'
+
 import './App.css'
 
 // Replace your code here
