@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import Cookies from 'js-cookie'
+import {HiFire} from 'react-icons/hi'
 
 import Layout from '../Layout'
 import VideoItem from '../VideoItem'
@@ -69,7 +70,10 @@ const Trending = () => {
 
   const renderSuccessView = () => (
     <>
-      <TrendingHeader>Trending</TrendingHeader>
+      <TrendingHeader>
+        <HiFire size={25} color="red" />
+        Trending
+      </TrendingHeader>
       <VideosList>
         {videos.map(video => (
           <VideoItem key={video.id} video={video} />
