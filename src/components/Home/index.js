@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
-
 import {FiSearch} from 'react-icons/fi'
 import {useState, useEffect, useCallback} from 'react'
+
 import Layout from '../Layout'
 import {
   ContentContainer,
@@ -43,7 +43,6 @@ const Home = () => {
     const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
-      console.log(data)
 
       const updateData = data.videos.map(video => ({
         id: video.id,
