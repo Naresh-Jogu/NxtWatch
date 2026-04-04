@@ -1,14 +1,11 @@
 import styled from 'styled-components'
 
 export const TrendingContainer = styled.div`
-  padding: 15px;
-  max-width: 1200px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   background-color: #f9f9f9;
-
-  @media (min-width: 768px) {
-    padding: 30px;
-  }
+  min-height: 100vh;
+  width: 100%;
 `
 
 export const TrendingHeader = styled.div`
@@ -30,7 +27,7 @@ export const TrendingHeader = styled.div`
 
 export const VideosList = styled.ul`
   list-style: none;
-  padding: 0;
+  padding: 30px;
   margin: 0;
   max-width: 600px;
 
