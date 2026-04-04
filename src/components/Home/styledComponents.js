@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const ContentContainer = styled.div`
   flex-grow: 1;
-  padding: 20px;
+  padding: 0px;
 `
 
 export const VideosContainer = styled.ul`
