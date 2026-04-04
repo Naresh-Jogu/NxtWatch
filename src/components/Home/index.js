@@ -3,6 +3,7 @@ import {FiSearch} from 'react-icons/fi'
 import {useState, useEffect, useCallback} from 'react'
 
 import Layout from '../Layout'
+import SubscriptionBanner from '../SubscriptionBanner'
 import {
   ContentContainer,
   VideosContainer,
@@ -16,6 +17,7 @@ import {
   FailureText,
   RetryButton,
 } from './styledComponents'
+
 import VideoItem from '../VideoItem'
 
 const apiStatusConstants = {
@@ -29,6 +31,7 @@ const Home = () => {
   const [videosList, setVideosList] = useState([])
   const [searchInput, setSearchInput] = useState('')
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial)
+  const [showBanner, setShowBanner] = useState(true)
 
   const getVideos = useCallback(async () => {
     setApiStatus(apiStatusConstants.loading)
@@ -138,9 +141,17 @@ const Home = () => {
     }
   }
 
+  const onCloseBanner = () => {
+    setShowBanner(false)
+  }
+
   return (
     <Layout>
       <ContentContainer>
+        <SubscriptionBanner
+          onCloseBanner={onCloseBanner}
+          showBanner={showBanner}
+        />
         {renderSearchBar()}
         {renderContent()}
       </ContentContainer>
