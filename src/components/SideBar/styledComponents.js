@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import {Link} from 'react-router-dom'
+import {NavLink as RouterNavLink} from 'react-router-dom'
 
 export const SidebarContainer = styled.div`
-  flex: 0 0 240px;
+  width: 240px;
   flex-shrink: 0;
   border-right: 1px solid #e2e8f0;
   height: calc(100vh - 70px);
@@ -22,23 +22,49 @@ export const NavItem = styled.li`
   cursor: pointer;
 `
 
-export const NavLink = styled(Link)`
+// export const NavLink = styled(RouterNavLink)`
+//   display: flex;
+//   align-items: center;
+//   gap: 15px;
+//   text-decoration: none;
+//   color: #475569;
+//   font-weight: 500;
+//   padding: 10px;
+//   border-radius: 4px;
+
+//   transition: all 0.2s ease;
+
+//   &:hover {
+//     background-color: #e2e8f0;
+//     color: #ff0000;
+//   }
+// `
+
+export const NavLink = styled(RouterNavLink).attrs({
+  activeClassName: 'active',
+})`
   display: flex;
   align-items: center;
-  gap: 15px;
   text-decoration: none;
   color: #475569;
-  font-weight: 500;
-  padding: 10px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  gap: 20px;
 
-  transition: all 0.2s ease;
-
-  &:hover {
-    background-color: #e2e8f0;
+  &.active {
+    background-color: #f1f5f9;
     color: #ff0000;
+
+    p {
+      font-weight: bold;
+      color: #1e293b;
+    }
+
+    svg {
+      color: #ff0000;
+    }
   }
 `
+
 export const ContactSection = styled.div`
   margin-top: 40px;
 `
