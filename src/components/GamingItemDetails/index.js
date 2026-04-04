@@ -3,7 +3,18 @@ import ReactPlayer from 'react-player'
 
 import Cookies from 'js-cookie'
 
-import {LoaderContainer} from './styledComponents'
+import {
+  GamingDetailsContainer,
+  PlayerWrapper,
+  GameTitle,
+  GameStats,
+  GameDescription,
+  FailureViewContainer,
+  FailureImage,
+  RetryButton,
+  LoaderContainer,
+} from './styledComponents'
+
 import Layout from '../Layout'
 
 const apiStatusConstants = {
@@ -70,30 +81,35 @@ const GamingItemDetails = props => {
   )
 
   const renderFailureView = () => (
-    <div>
-      <img
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png"
+    <FailureViewContainer>
+      <FailureImage
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
         alt="failure view"
       />
       <h1>Oops! Something Went Wrong</h1>
-      <button type="button" onClick={getGamingVideo}>
+      <p>
+        We are having some trouble to complete your request. Please try again.
+      </p>
+      <RetryButton type="button" onClick={getGamingVideo}>
         Retry
-      </button>
-    </div>
+      </RetryButton>
+    </FailureViewContainer>
   )
 
   const renderSuccessView = () => (
-    <div>
-      <ReactPlayer
-        url={gamingVideo.videoUrl}
-        width="100%"
-        height="400px"
-        controls
-      />
-
-      <h1>{gamingVideo.title}</h1>
-      <p>{gamingVideo.viewCount} Watching Worldwide</p>
-    </div>
+    <GamingDetailsContainer>
+      <PlayerWrapper>
+        <ReactPlayer
+          url={gamingVideo.videoUrl}
+          width="100%"
+          height="100%"
+          controls
+        />
+      </PlayerWrapper>
+      <GameTitle>{gamingVideo.title}</GameTitle>
+      <GameStats>{gamingVideo.viewCount} Watching Worldwide</GameStats>
+      <GameDescription>{gamingVideo.description}</GameDescription>
+    </GamingDetailsContainer>
   )
 
   const renderContent = () => {
