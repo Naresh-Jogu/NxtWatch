@@ -15,5 +15,11 @@ export const BodyContainer = styled.div`
 export const Content = styled.div`
   flex-grow: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 0px;
+`
+
+export const SideBarWrapper = styled.div`
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `
