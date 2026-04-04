@@ -9,6 +9,8 @@ import NotFound from './components/NotFound'
 import SavedVideos from './components/SavedVideos'
 import ThemeContext from './context/ThemeContext'
 import ProtectedRoute from './components/ProtectedRoute'
+import VideoItemDetails from './components/VideoItemDetails'
+import GamingItemDetails from './components/GamingItemDetails'
 
 import './App.css'
 
@@ -28,6 +30,12 @@ const App = () => {
         <ProtectedRoute exact path="/" component={Home} />
         <ProtectedRoute exact path="/trending" component={Trending} />
         <ProtectedRoute exact path="/gaming" component={Gaming} />
+        <ProtectedRoute exact path="/videos/:id" component={VideoItemDetails} />
+        <ProtectedRoute
+          exact
+          path="/gaming/:id"
+          component={GamingItemDetails}
+        />
         <ProtectedRoute exact path="/saved-videos" component={SavedVideos} />
 
         <Route component={NotFound} />
