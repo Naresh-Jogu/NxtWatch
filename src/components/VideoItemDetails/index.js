@@ -1,8 +1,28 @@
 import {useState, useEffect} from 'react'
+import {formatDistanceToNow} from 'date-fns'
 import Cookies from 'js-cookie'
 import ReactPlayer from 'react-player'
+import {AiOutlineLike, AiOutlineDislike} from 'react-icons/ai'
 
-import {LoaderContainer} from './styledComponents'
+import {
+  VideoDetailContainer,
+  PlayerWrapper,
+  VideoTitle,
+  VideoStatusContainer,
+  VideoStatusText,
+  VideoDot,
+  HrLine,
+  ChannelContainer,
+  ChannelImage,
+  ChannelInfo,
+  ChannelName,
+  Subscribers,
+  LoaderContainer,
+  VideoDescription,
+  ReactionButtonsContainer,
+  ReactionButton,
+} from './styledComponents'
+
 import Layout from '../Layout'
 
 const apiStatusConstants = {
@@ -15,6 +35,8 @@ const apiStatusConstants = {
 const VideoItemDetails = props => {
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial)
   const [videoData, setVideoData] = useState({})
+  const [isLiked, setIsLiked] = useState(false)
+  const [isDisLiked, setIsDisLiked] = useState(false)
 
   const getVideoDetails = async () => {
     setApiStatus(apiStatusConstants.loading)
@@ -60,31 +82,75 @@ const VideoItemDetails = props => {
     getVideoDetails()
   }, [])
 
+  const onClickLike = () => {
+    setIsLiked(prev => !prev)
+    setIsDisLiked(false)
+  }
+
+  const onClickDislike = () => {
+    setIsDisLiked(prev => !prev)
+    setIsLiked(false)
+  }
+
   const renderLoadingView = () => (
     <LoaderContainer>
       <h1>Loading...</h1>
     </LoaderContainer>
   )
 
+  const publishedDate = videoData.publishedAt
+    ? formatDistanceToNow(new Date(videoData.publishedAt))
+    : ''
+
   const renderSuccessView = () => (
-    <div>
-      <ReactPlayer url={videoData.videoUrl} width="100%" />
-      <h1>{videoData.title}</h1>
-      <p>{videoData.viewCount} views</p>
-      <div>
-        <img
+    <VideoDetailContainer>
+      <PlayerWrapper>
+        <ReactPlayer
+          url={videoData.videoUrl}
+          controls
+          width="100%"
+          height="100%"
+        />
+      </PlayerWrapper>
+      <VideoTitle>{videoData.title}</VideoTitle>
+      <VideoStatusContainer>
+        <VideoStatusText>
+          {videoData.viewCount} views <VideoDot> &#8226; </VideoDot>{' '}
+          {publishedDate} ago
+        </VideoStatusText>
+        {/* Buttons like Save/Like would go here in a real app */}
+
+        <ReactionButtonsContainer>
+          <ReactionButton type="button" active={isLiked} onClick={onClickLike}>
+            <AiOutlineLike size={20} />
+            Like
+          </ReactionButton>
+
+          <ReactionButton
+            type="button"
+            active={isDisLiked}
+            onClick={onClickDislike}
+          >
+            <AiOutlineDislike size={20} />
+            Dislike
+          </ReactionButton>
+        </ReactionButtonsContainer>
+      </VideoStatusContainer>
+      <HrLine />
+      <ChannelContainer>
+        <ChannelImage
           src={videoData.channel.profileImageUrl}
           alt="channel logo"
-          width="40"
         />
-
-        <div>
-          <p>{videoData.channel.name}</p>
-          <p>{videoData.channel.subscriberCount} subscribers</p>
-        </div>
-      </div>
-      <p>{videoData.description}</p>
-    </div>
+        <ChannelInfo>
+          <ChannelName>{videoData.channel.name}</ChannelName>
+          <Subscribers>
+            {videoData.channel.subscriberCount} subscribers
+          </Subscribers>
+          <VideoDescription>{videoData.description}</VideoDescription>
+        </ChannelInfo>
+      </ChannelContainer>
+    </VideoDetailContainer>
   )
 
   const renderFailureView = () => (
