@@ -1,14 +1,21 @@
 import SideBar from '../SideBar'
 import Header from '../Header'
 
-import {BodyContainer, LayoutContainer, Content} from './styledComponents'
+import {
+  BodyContainer,
+  LayoutContainer,
+  Content,
+  SideBarWrapper,
+} from './styledComponents'
 
 const Layout = ({children}) => (
   <LayoutContainer>
     <Header />
 
     <BodyContainer>
-      <SideBar />
+      <SideBarWrapper>
+        <SideBar />
+      </SideBarWrapper>
       <Content>{children}</Content>
     </BodyContainer>
   </LayoutContainer>
