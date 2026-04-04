@@ -19,7 +19,7 @@ const SideBar = () => (
   <SidebarContainer>
     <NavList>
       <NavItem>
-        <NavLink to="/">
+        <NavLink to="/" exact>
           <AiFillHome size={22} />
           <p>Home</p>
         </NavLink>
