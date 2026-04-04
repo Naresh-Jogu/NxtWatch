@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import {Link} from 'react-router-dom'
 import {SiYoutubegaming} from 'react-icons/si'
 import Cookies from 'js-cookie'
 import Layout from '../Layout'
@@ -40,7 +41,6 @@ const Gaming = () => {
     const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
-      console.log(data)
 
       const updateData = data.videos.map(video => ({
         id: video.id,
@@ -89,11 +89,13 @@ const Gaming = () => {
 
       <GamingVideosList>
         {videos.map(video => (
-          <GamingVideoItem key={video.id}>
-            <Thumbnail src={video.thumbnailUrl} alt="video thumbnail" />
-            <VideoTitle>{video.title}</VideoTitle>
-            <Views>{video.viewCount} Watching Worldwide</Views>
-          </GamingVideoItem>
+          <Link to={`/gaming/${video.id}`} key={video.id}>
+            <GamingVideoItem key={video.id}>
+              <Thumbnail src={video.thumbnailUrl} alt="video thumbnail" />
+              <VideoTitle>{video.title}</VideoTitle>
+              <Views>{video.viewCount} Watching Worldwide</Views>
+            </GamingVideoItem>
+          </Link>
         ))}
       </GamingVideosList>
     </GamingContainer>
