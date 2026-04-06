@@ -12,6 +12,9 @@ import {
   LoaderContainer,
   FailureContainer,
   RetryButton,
+  FailureImage,
+  FailureHeading,
+  FailureText,
 } from './styledComponents'
 
 const apiStatusConstants = {
@@ -84,8 +87,17 @@ const Trending = () => {
 
   const renderFailureView = () => (
     <FailureContainer>
-      <p>Something went wrong</p>
-      <RetryButton onClick={getTrendingVideos}>Retry</RetryButton>
+      <FailureImage
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
+        alt="failure view"
+      />
+      <FailureHeading>Oops! Something Went Wrong</FailureHeading>
+      <FailureText>
+        We are having some trouble completing your request. Please try again.
+      </FailureText>
+      <RetryButton type="button" onClick={getTrendingVideos}>
+        Retry
+      </RetryButton>
     </FailureContainer>
   )
 
