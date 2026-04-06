@@ -13,6 +13,11 @@ import {
   VideoTitle,
   Views,
   LoaderContainer,
+  FailureContainer,
+  FailureImage,
+  FailureHeading,
+  FailureText,
+  RetryButton,
 } from './styledComponents'
 
 const apiStatusConstants = {
@@ -66,18 +71,20 @@ const Gaming = () => {
   )
 
   const renderFailureView = () => (
-    <div>
-      <img
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png"
+    <FailureContainer>
+      <FailureImage
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png"
         alt="failure view"
         width="300"
       />
-      <h1>Oops! Something Went Wrong</h1>
-      <p>We are having some trouble completing your request.</p>
-      <button type="button" onClick={getGamingVideos}>
+      <FailureHeading>Oops! Something Went Wrong</FailureHeading>
+      <FailureText>
+        We are having some trouble completing your request.
+      </FailureText>
+      <RetryButton type="button" onClick={getGamingVideos}>
         Retry
-      </button>
-    </div>
+      </RetryButton>
+    </FailureContainer>
   )
 
   const renderSuccessView = () => (
