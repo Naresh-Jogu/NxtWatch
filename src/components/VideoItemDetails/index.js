@@ -1,8 +1,12 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
+
 import {formatDistanceToNow} from 'date-fns'
+
 import Cookies from 'js-cookie'
 import ReactPlayer from 'react-player'
 import {AiOutlineLike, AiOutlineDislike} from 'react-icons/ai'
+import {MdPlaylistAdd} from 'react-icons/md'
+import NxtWatchContext from '../../context/NxtWatchContext'
 
 import {
   VideoDetailContainer,
@@ -21,6 +25,12 @@ import {
   VideoDescription,
   ReactionButtonsContainer,
   ReactionButton,
+  FailureContainer,
+  FailureImage,
+  FailureHeading,
+  RetryButton,
+  SaveVideoButton,
+  SaveButtonCard,
 } from './styledComponents'
 
 import Layout from '../Layout'
@@ -37,6 +47,11 @@ const VideoItemDetails = props => {
   const [videoData, setVideoData] = useState({})
   const [isLiked, setIsLiked] = useState(false)
   const [isDisLiked, setIsDisLiked] = useState(false)
+  const {savedVideos, addOrRemoveVideo} = useContext(NxtWatchContext)
+
+  const isSaved = Array.isArray(savedVideos)
+    ? savedVideos.some(each => each.id === videoData.id)
+    : false
 
   const getVideoDetails = async () => {
     setApiStatus(apiStatusConstants.loading)
@@ -112,7 +127,9 @@ const VideoItemDetails = props => {
           height="100%"
         />
       </PlayerWrapper>
+
       <VideoTitle>{videoData.title}</VideoTitle>
+
       <VideoStatusContainer>
         <VideoStatusText>
           {videoData.viewCount} views <VideoDot> &#8226; </VideoDot>{' '}
@@ -134,6 +151,16 @@ const VideoItemDetails = props => {
             <AiOutlineDislike size={20} />
             Dislike
           </ReactionButton>
+
+          <SaveButtonCard>
+            <MdPlaylistAdd />
+            <SaveVideoButton
+              type="button"
+              onClick={() => addOrRemoveVideo(videoData)}
+            >
+              {isSaved ? 'Saved' : 'Save'}
+            </SaveVideoButton>
+          </SaveButtonCard>
         </ReactionButtonsContainer>
       </VideoStatusContainer>
       <HrLine />
@@ -154,16 +181,16 @@ const VideoItemDetails = props => {
   )
 
   const renderFailureView = () => (
-    <div>
-      <img
+    <FailureContainer>
+      <FailureImage
         src="https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png"
         alt="failure view"
       />
-      <h1>Oops! Something Went Wrong</h1>
-      <button type="button" onClick={getVideoDetails}>
+      <FailureHeading>Oops! Something Went Wrong</FailureHeading>
+      <RetryButton type="button" onClick={getVideoDetails}>
         Retry
-      </button>
-    </div>
+      </RetryButton>
+    </FailureContainer>
   )
 
   const renderVideoDetails = () => {
