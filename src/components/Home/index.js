@@ -100,7 +100,15 @@ const Home = () => {
 
   const renderVideos = () => {
     if (videosList.length === 0) {
-      return <p>No Search Results Found</p>
+      return (
+        <FailureContainer>
+          <FailureImage
+            src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
+            alt="no videos"
+          />
+          <FailureHeading>No search results found</FailureHeading>
+        </FailureContainer>
+      )
     }
 
     return (
