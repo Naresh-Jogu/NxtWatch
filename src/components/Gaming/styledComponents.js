@@ -113,3 +113,48 @@ export const LoaderContainer = styled.div`
   align-items: center;
   min-height: 80vh;
 `
+
+export const FailureContainer = styled.div`
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 992px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 576px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+`
+
+export const FailureImage = styled.img`
+  width: 300px;
+  margin-bottom: 20px;
+`
+
+export const FailureHeading = styled.h1`
+  font-size: 20px;
+  margin-bottom: 10px;
+`
+
+export const FailureText = styled.p`
+  color: #64748b;
+  text-align: center;
+  margin-bottom: 20px;
+`
+
+export const RetryButton = styled.button`
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+`
