@@ -28,16 +28,11 @@ export const PlayerWrapper = styled.div`
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 24px;
-
-  /* 2. Fix: Limit the maximum height so it doesn't drown the page */
   max-height: 450px;
 
-  /* 3. Optional: On extra large screens, center a smaller player */
   @media screen and (min-width: 1200px) {
     max-width: 800px;
     max-height: 450px;
-    /* If you want it centered, uncomment the next line */
-    /* margin-left: auto; margin-right: auto; */
   }
 
   @media screen and (max-width: 768px) {
@@ -153,4 +148,56 @@ export const ReactionButton = styled.button`
   color: ${props => (props.active ? '#2563eb' : '#64748b')};
 
   transition: color 0.2s ease;
+`
+
+export const FailureContainer = styled.div`
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 992px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 576px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+`
+
+export const FailureImage = styled.img`
+  width: 300px;
+  margin-bottom: 20px;
+`
+
+export const FailureHeading = styled.h1`
+  font-size: 20px;
+  margin-bottom: 10px;
+`
+
+export const RetryButton = styled.button`
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+`
+
+export const SaveButtonCard = styled.div`
+
+display: flex;
+align-items:center;
+gap: 10px
+border:none;
+`
+
+export const SaveVideoButton = styled.button`
+  background: none;
+  border: none;
 `
