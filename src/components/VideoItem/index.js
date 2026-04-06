@@ -8,18 +8,23 @@ import {
   Title,
   ChannelName,
   VideoMeta,
+  VideoLink,
 } from './styledComponents'
 
 const VideoItem = props => {
-  const {video} = props
+  const {video, isSavedPage = false} = props
   const {title, thumbnailUrl, viewCount, publishedAt, channel, id} = video
 
   return (
-    <Link to={`/videos/${id}`}>
-      <VideoCard>
-        <Thumbnail src={thumbnailUrl} alt="video thumbnail" />
+    <VideoLink to={`/videos/${id}`}>
+      <VideoCard isSavedPage={isSavedPage}>
+        <Thumbnail
+          src={thumbnailUrl}
+          alt="video thumbnail"
+          isSavedPage={isSavedPage}
+        />
 
-        <VideoInfo>
+        <VideoInfo isSavedPage={isSavedPage}>
           <ChannelLogo src={channel.profileImageUrl} alt="channel logo" />
 
           <VideoDetails>
@@ -31,7 +36,7 @@ const VideoItem = props => {
           </VideoDetails>
         </VideoInfo>
       </VideoCard>
-    </Link>
+    </VideoLink>
   )
 }
 
