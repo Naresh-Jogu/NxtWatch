@@ -47,7 +47,7 @@ export const NavLink = styled(RouterNavLink).attrs({
   align-items: center;
   text-decoration: none;
   color: #475569;
-  padding: 10px 20px;
+  padding: 0px 20px;
   gap: 20px;
 
   &.active {
