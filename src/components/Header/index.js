@@ -82,7 +82,7 @@ const Header = () => {
           {close => (
             <PopupContainer isDarkTheme={isDarkTheme}>
               <PopupText isDarkTheme={isDarkTheme}>
-                Are you sure you want to logout?
+                Are you sure, you want to logout
               </PopupText>
 
               <PopupButtonsContainer>
@@ -103,12 +103,13 @@ const Header = () => {
           trigger={
             <IconButton type="button" isDarkTheme={isDarkTheme}>
               <FiLogOut size={25} />
+              <span style={{display: 'none'}}>Logout</span>
             </IconButton>
           }
         >
           {close => (
             <div style={{padding: '20px', textAlign: 'center'}}>
-              <p>Are you sure you want to logout?</p>
+              <p>Are you sure, you want to logout</p>
 
               <button
                 type="button"
