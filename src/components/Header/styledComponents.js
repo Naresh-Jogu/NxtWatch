@@ -56,7 +56,6 @@ export const IconButton = styled.button`
 
 export const ProfileImage = styled.img`
   width: 30px;
-  display: none; // Hide on mobile
 
   @media screen and (min-width: 768px) {
     display: block; // Show on desktop
