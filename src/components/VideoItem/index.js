@@ -1,0 +1,51 @@
+import {useContext} from 'react'
+import {Link} from 'react-router-dom'
+import NxtWatchContext from '../../context/NxtWatchContext'
+
+import {
+  VideoCard,
+  Thumbnail,
+  VideoInfo,
+  ChannelLogo,
+  VideoDetails,
+  Title,
+  ChannelName,
+  VideoMeta,
+  VideoLink,
+} from './styledComponents'
+
+const VideoItem = props => {
+  const {video, isSavedPage = false} = props
+
+  const {isDarkTheme} = useContext(NxtWatchContext)
+
+  const {title, thumbnailUrl, viewCount, publishedAt, channel, id} = video
+
+  return (
+    <VideoLink to={`/videos/${id}`}>
+      <VideoCard isSavedPage={isSavedPage} isDarkTheme={isDarkTheme}>
+        <Thumbnail
+          src={thumbnailUrl}
+          alt="video thumbnail"
+          isSavedPage={isSavedPage}
+        />
+
+        <VideoInfo isSavedPage={isSavedPage}>
+          <ChannelLogo src={channel.profileImageUrl} alt="channel logo" />
+
+          <VideoDetails>
+            <Title isDarkTheme={isDarkTheme}>{title}</Title>
+
+            <ChannelName isDarkTheme={isDarkTheme}>{channel.name}</ChannelName>
+
+            <VideoMeta isDarkTheme={isDarkTheme}>
+              {viewCount} views • {publishedAt}
+            </VideoMeta>
+          </VideoDetails>
+        </VideoInfo>
+      </VideoCard>
+    </VideoLink>
+  )
+}
+
+export default VideoItem
