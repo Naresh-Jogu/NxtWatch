@@ -19,6 +19,7 @@ import {
   FailureHeading,
   FailureText,
   RetryButton,
+  SearchFailureHeading,
 } from './styledComponents'
 
 import VideoItem from '../VideoItem'
@@ -34,13 +35,14 @@ const Home = () => {
   const {isDarkTheme} = useContext(NxtWatchContext)
   const [videosList, setVideosList] = useState([])
   const [searchInput, setSearchInput] = useState('')
+  const [appliedSearch, setAppliedSearch] = useState('')
   const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial)
   const [showBanner, setShowBanner] = useState(true)
 
   const getVideos = useCallback(async () => {
     setApiStatus(apiStatusConstants.loading)
     const jwtToken = Cookies.get('jwt_token')
-    const url = `https://apis.ccbp.in/videos/all?search=${searchInput}`
+    const url = `https://apis.ccbp.in/videos/all?search=${appliedSearch}`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -67,11 +69,15 @@ const Home = () => {
     } else {
       setApiStatus(apiStatusConstants.failure)
     }
-  }, [searchInput])
+  }, [appliedSearch])
 
   useEffect(() => {
     getVideos()
   }, [getVideos])
+
+  const onClickSearchBar = () => {
+    setAppliedSearch(searchInput)
+  }
 
   const renderSearchBar = () => (
     <SearchContainer isDarkTheme={isDarkTheme}>
@@ -86,7 +92,7 @@ const Home = () => {
       <SearchButton
         type="button"
         data-testid="searchButton"
-        onClick={getVideos}
+        onClick={onClickSearchBar}
         isDarkTheme={isDarkTheme}
       >
         <FiSearch />
@@ -103,14 +109,15 @@ const Home = () => {
   const renderVideos = () => {
     if (videosList.length === 0) {
       return (
-        <FailureContainer>
+        <FailureContainer isDarkTheme={isDarkTheme}>
           <FailureImage
             src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
             alt="no videos"
           />
-          <FailureHeading>
+          <SearchFailureHeading>No Search results found</SearchFailureHeading>
+          <FailureText>
             Try different key words or remove search filter
-          </FailureHeading>
+          </FailureText>
         </FailureContainer>
       )
     }
@@ -164,10 +171,13 @@ const Home = () => {
   return (
     <Layout>
       <ContentContainer>
-        <SubscriptionBanner
-          onCloseBanner={onCloseBanner}
-          showBanner={showBanner}
-        />
+        {showBanner && (
+          <SubscriptionBanner
+            onCloseBanner={onCloseBanner}
+            showBanner={showBanner}
+          />
+        )}
+
         {renderSearchBar()}
         {renderContent()}
       </ContentContainer>
