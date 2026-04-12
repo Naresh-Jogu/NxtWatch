@@ -72,6 +72,7 @@ const Gaming = () => {
     <LoaderContainer data-testid="loader">
       {/* Change loader color based on theme */}
       <Loader
+        data-testid="loader"
         type="ThreeDots"
         color={isDarkTheme ? '#ffffff' : '#3b82f6'}
         height={50}
