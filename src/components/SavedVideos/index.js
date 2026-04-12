@@ -31,7 +31,7 @@ const SavedVideos = () => {
           </NoSavedVideosHeading>
 
           <NoSavedVideosText isDarkTheme={isDarkTheme}>
-            You can save videos while watching them
+            Save your videos by clicking a button
           </NoSavedVideosText>
         </NoSavedVideosContainer>
       </Layout>
