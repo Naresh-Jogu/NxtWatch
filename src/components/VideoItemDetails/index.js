@@ -72,10 +72,10 @@ const VideoItemDetails = props => {
     const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
-      console.log(data)
+
       const updateData = {
-        id: data.video_details.id,
         title: data.video_details.title,
+        id: data.video_details.id,
         videoUrl: data.video_details.video_url,
         viewCount: data.video_details.view_count,
         thumbnailUrl: data.video_details.thumbnail_url,
