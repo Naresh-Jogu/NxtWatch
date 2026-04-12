@@ -78,7 +78,7 @@ export const FailureContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: ${props => (props.isDarkTheme ? '#313131' : '#f1f5f9')};
+  background-color: ${props => (props.isDarkTheme ? 'black' : 'white')};
 
   @media screen and (max-width: 1200px) {
     grid-template-columns: repeat(3, 1fr);
@@ -99,6 +99,12 @@ export const FailureImage = styled.img`
 `
 
 export const FailureHeading = styled.h1`
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: ${props => (props.isDarkTheme ? '#f9f9f9' : '#1e293b')};
+`
+
+export const SearchFailureHeading = styled.h1`
   font-size: 20px;
   margin-bottom: 10px;
   color: ${props => (props.isDarkTheme ? '#f9f9f9' : '#1e293b')};
